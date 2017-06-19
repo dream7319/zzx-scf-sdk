@@ -160,7 +160,7 @@ tax | 税率  | double|Y|N|
 source | 产地 | string(50)|Y|Y|
 status | 成交状态  | string(256)|Y|N|
 amount|成交金额| double|Y|N|
-supplier|供应商| double|Y|N|
+supplier|供应商| string|Y|N|
 
 返回值：
 * statusCode = 200即为成功，非 200 看errMsg字段
@@ -210,7 +210,7 @@ productSet | 订单商品集合｛productId：num，productId2:num...}  | string
 ----|------|----|------|----|
 amount | 贷款申请金额（销售合同金额合计）单位：元  | double |Y|Y|
 productId | 金融产品ID  | string(128)|Y|N|
-orders | 订单集合  | string(128)|Y|N|
+orders | 订单集合  | string|Y|N|
 *  金融产品ID确定了这次贷款申请的利率，期限等金融要素.对接时中子星会给对应的ID信息
 
 * order实体说明
@@ -222,7 +222,7 @@ payType | 支付方式  | string(128)|Y|N|
 buyerId | 买家ID  | string(128)|Y|N|
 buyer | 买家(email)  | string(128)|Y|N|
 status | 新销售单／备货中／取消／签收  | string(256)|Y|N|
-num | 商品数量  | double|Y|N|
+num | 商品数量  | int|Y|N|
 amount | 商品总金额 | double|Y|Y|
 freight | 运费 |double|Y|N|
 extra|额外费用| double|Y|N|
@@ -245,7 +245,7 @@ quantity | 购买数量  | int|Y|N|
 category | 分类  | string(256)|Y|N|
 tax | 税率  | double|Y|N|
 source | 产地 | string(50)|Y|Y|
-supplier|供应商| double|Y|N|
+supplier|供应商| string|Y|N|
 
 返回值：
 * statusCode = 200即为成功，非 200 看errMsg字段
@@ -263,7 +263,7 @@ supplier|供应商| double|Y|N|
 ----|------|----|------|----|
 id | 编号(本地贷款编号)  | string(128)|Y|Y|
 fileSubject | loanApply-文件主题  | string(128)|Y|N|
-data | 内容 base64  | ss |Y|N|
+data | 内容 base64  | string |Y|N|
 * fileSubject的格式为：[loanApply-文件主题]，比如是采购合同,则是loanApply-采购合同
 
 返回值：
@@ -364,11 +364,11 @@ bankBranch | 开户支行 | string|Y|Y|
 
 参数名 | 说明 | 类型 | 必须 | 唯一|
 ----|------|----|------|----|
-periodNumber | 还款期数序号（有可能有多期，因此此字段与后续字段以数组方式存在）  | int[]|Y|Y|
-dueDate | 应还款日期(YYYYMMDD) | string[]|Y|Y|
-dueCapital | 应还本金 | double[]|Y|Y|
-dueInterest | 应还利息 | double[]|Y|Y|
-dueAmount | 应还金额总和 | double[]|Y|Y|
+periodNumber | 还款期数序号（有可能有多期，因此此字段与后续字段以数组方式存在）  | int|Y|Y|
+dueDate | 应还款日期(YYYYMMDD) | string|Y|Y|
+dueCapital | 应还本金 | double|Y|Y|
+dueInterest | 应还利息 | double|Y|Y|
+dueAmount | 应还金额总和 | double|Y|Y|
 
 返回值：
 * statusCode = 200即为成功，非 200 看errMsg字段
@@ -384,7 +384,7 @@ dueAmount | 应还金额总和 | double[]|Y|Y|
 
 参数名 | 说明 | 类型 | 必须 | 唯一|
 ----|------|----|------|----|
-refundType | 还款类型：1：到期正常，还款2：提前还款，3：逾期还款  | string(128)|Y|Y|
+refundType | 还款类型：1：到期正常，还款2：提前还款，3：逾期还款  | int|Y|Y|
 loanId | 贷款编号 | string|Y|Y|
 amount | 还款总金额 | double|Y|Y|
 periodNumber | 还款期数序号 | int|Y|Y|
@@ -408,10 +408,10 @@ periodNumber | 还款期数序号 | int|Y|Y|
 loanId | 贷款编号 | string|Y|Y|
 amount | 还款总金额=本金+利息+手续费+罚息 | double|Y|Y|
 periodNumber | 还款期数序号 | int|Y|Y|
-refundCapital | 还款本金，仅当result=1时有效 | string|Y|Y|
+refundCapital | 还款本金，仅当result=1时有效 | double|Y|Y|
 refundInterest | 还款利息，仅当result=1时有效 | double|Y|Y|
-refundCommission | 还款手续费，仅当result=1时有效 | int|Y|Y|
-refundDefaultInterest | 还款罚息，仅当result=1时有效 | int|Y|Y|
+refundCommission | 还款手续费，仅当result=1时有效 | double|Y|Y|
+refundDefaultInterest | 还款罚息，仅当result=1时有效 | double|Y|Y|
 refundFlag | 此期是否还款完毕，仅当result=1时有效1：已还完完毕    2：未还款完毕 | int|Y|Y|
 refundType | 还款类型，1：到期还款，2：提前还款，3：追偿还款 | int|Y|Y|
 
