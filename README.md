@@ -313,7 +313,7 @@ orders时一个数组，里面每一个order参数如下：
 参数名 | 说明 | 类型 | 必须 | 唯一|
 ----|------|----|------|----|
 sourceOrderId | 来源平台中的订单编号，仅当result=1有效  | string(128)|Y|Y|
-loanAmount | 该订单审批通过的贷款金额，仅当result=1有效。为0是，表示该订单未审核通过。 int|Y|Y|
+loanAmount | 该订单审批通过的贷款金额，仅当result=1有效。为0是，表示该订单未审核通过|double|Y|Y|
 
 返回值：
 * statusCode = 200即为成功，非 200 看errMsg字段
