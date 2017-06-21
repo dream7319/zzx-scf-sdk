@@ -283,6 +283,7 @@ data | 内容 base64  | ss |Y|N|
 参数名 | 说明 | 类型 | 必须 | 唯一|
 ----|------|----|------|----|
 loadId | 贷款编号  | string(128)|Y|Y|
+confirmation | 确认结果(1：同意   2：取消   3：过期) | int|Y|Y|
 
 返回值：
 * statusCode = 200即为成功，非 200 看errMsg字段
