@@ -136,7 +136,7 @@ lastOrderDate | 最后下单日期 (YYYY-MM-DD HH24:MI:SS)| string|N|N|
 ----|------|----|------|----|
 id | 编号(本地指客户编号)  | string(128)|Y|Y|
 fileSubject | 文件主题{营业执照:yyzz；组织机构代码：zzjg;税务登记证文件:sudj;单位银行结算账户开户许可证:khxk;企业法人证件正面:frzjz;企业法人证件反面:frzjf	  | string(128)|Y|N|
-fileType | 文件类型(（jpq，pdf，xls，doc等)  | string(20)|Y|N|
+filename | 文件名称  | string(200)|Y|N|
 data | 内容 base64  | ss |Y|N|
 * fileSubject的格式为：[upsertCustomer-特定主题],比如是营业执照,则是upsertCustomer-yyzz
 
@@ -264,7 +264,7 @@ supplier|供应商| string|Y|N|
 ----|------|----|------|----|
 id | 编号(本地贷款编号)  | string(128)|Y|Y|
 fileSubject | loanApply-文件主题  | string(128)|Y|N|
-fileType | 文件类型(（jpq，pdf，xls，doc等)  | string(20)|Y|N|
+filename | 文件名称  | string(200)|Y|N|
 data | 内容 base64  | string |Y|N|
 * fileSubject的格式为：[loanApply-文件主题]，比如是采购合同,则是loanApply-采购合同
 
