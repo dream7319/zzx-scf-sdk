@@ -43,7 +43,7 @@ HTTPS|POST  |JSON|  UTF-8|
 5	|channelId|	Y	|String	|"平台编号（由中子星统一分配)。对于请求消息，此字段为必选字段，内容即为分配给该平台的ID。对于应答消息，此字段可以忽略不填。   (参与签名)|
 6	|signType	|Y|	String	|RSA2（SHA256WithRSA）   (参与签名)|
 7	|sign	|Y	|String	|RSA加密签名，见安全签名机制 (不参与签名)|
-8	|params	|Y	|String|	应答消息体，以JSON格式传输。 (消息体中每个非空字段均参与签名)|
+8	|params	|Y	|String|	应答消息体，以JSON格式传输(包含errMsg字段,当errMsg=“success”时代表业务处理成功)。 (消息体中每个非空字段均参与签名)|
 
 #### 1.3.3 请求和应答样例	
 
@@ -122,7 +122,7 @@ lastOrderDate | 最后下单日期 (YYYY-MM-DD HH24:MI:SS)| string|N|N|
 
 返回值：
 
-* statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200且params中的errMsg=success即为成功，非200看errMsg字段
 
 #### 1.2 上传资料
 
