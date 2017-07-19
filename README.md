@@ -37,13 +37,13 @@ HTTPS|POST  |JSON|  UTF-8|
 序号	| 名称  | 必填	| 类型	|参数说明|
 ---- |------|----  |------|-----|
 1	|statusCode	|Y	|int	|"消息是否成功接受并处理结果标记，statusCode = 200时表示成功处理, statusCode != 200时表示处理失败" (不参与签名)|
-2	|errMsg	|N	|String	|"失败原因， 仅当statusCode != 200时有效   "(不参与签名)|
+2	|errMsg	|N	|String	|"失败原因， 仅当statusCode != 200时有效"(不参与签名)|
 3	|method	|Y	|String	|方法名称，同请求   (参与签名)|
 4	|ver	|Y	|String	|协议接口版本号，"1.0"，同请求。   (参与签名)|
 5	|channelId|	Y	|String	|"平台编号（由中子星统一分配)。对于请求消息，此字段为必选字段，内容即为分配给该平台的ID。对于应答消息，此字段可以忽略不填。   (参与签名)|
 6	|signType	|Y|	String	|RSA2（SHA256WithRSA）   (参与签名)|
 7	|sign	|Y	|String	|RSA加密签名，见安全签名机制 (不参与签名)|
-8	|params	|Y	|String|	应答消息体，以JSON格式传输。   (消息体中每个非空字段均参与签名)|
+8	|params	|Y	|String|	应答消息体，以JSON格式传输。 (消息体中每个非空字段均参与签名)|
 
 #### 1.3.3 请求和应答样例	
 
