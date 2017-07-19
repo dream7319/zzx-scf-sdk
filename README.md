@@ -77,12 +77,12 @@ HTTPS|POST  |JSON|  UTF-8|
 
 待签名字符串：
 ```
-channelId=2&method=getLoanDetailInfo&params={"loanDate":"2016-12-09","commissions":60,"loanAmount":2000,"balance":2080.53,"refunds":[{"periodNumber":1,"dueDate":"20170108","dueAmount":693.51,"status":3},{"periodNumber":2,"dueDate":"20170207","dueAmount":693.51,"status":3},{"periodNumber":3,"dueDate":"20170309","dueAmount":693.51,"status":3}]}&signType=RSA&ver=1.0
+channelId=2&method=getLoanDetailInfo&params={"loanDate":"2016-12-09","commissions":60,"loanAmount":2000,"balance":2080.53,"refunds":[{"periodNumber":1,"dueDate":"20170108","dueAmount":693.51,"status":3},{"periodNumber":2,"dueDate":"20170207","dueAmount":693.51,"status":3},{"periodNumber":3,"dueDate":"20170309","dueAmount":693.51,"status":3}]}&signType=RSA2&ver=1.0
 ```
 
 签名后
 ```
-{"errCode":200,"method":"getLoanDetailInfo","ver":"1.0","channelId":"2","signType":"RSA","sign":"AiNnysWeGcCmxAEnONxJhlvImIJgnlo6qAqf5+EgHmCSpVTGfydcR6bW0bdAve4Yj3bRm7hx36/2NtnbQiZRm/PD8S0JIt6lTp0LRzFU0ZcCy5RMSc6iM08Cm6KpiljTjkohCsOy0V6Ux2Hnu3xSSG3gLCBDAUVqWLPeADlFn8s\u003d","params":{"loanDate":"2016-12-09","commissions":60.0,"loanAmount":2000.0,"balance":2080.53,"refunds":[{"periodNumber":1,"dueDate":"20170108","dueAmount":693.51,"status":3},{"periodNumber":2,"dueDate":"20170207","dueAmount":693.51,"status":3},{"periodNumber":3,"dueDate":"20170309","dueAmount":693.51,"status":3}]}}
+{"method":"getLoanDetailInfo","ver":"1.0","channelId":"2","signType":"RSA2","sign":"AiNnysWeGcCmxAEnONxJhlvImIJgnlo6qAqf5+EgHmCSpVTGfydcR6bW0bdAve4Yj3bRm7hx36/2NtnbQiZRm/PD8S0JIt6lTp0LRzFU0ZcCy5RMSc6iM08Cm6KpiljTjkohCsOy0V6Ux2Hnu3xSSG3gLCBDAUVqWLPeADlFn8s\u003d","params":{"loanDate":"2016-12-09","commissions":60.0,"loanAmount":2000.0,"balance":2080.53,"refunds":[{"periodNumber":1,"dueDate":"20170108","dueAmount":693.51,"status":3},{"periodNumber":2,"dueDate":"20170207","dueAmount":693.51,"status":3},{"periodNumber":3,"dueDate":"20170309","dueAmount":693.51,"status":3}]}}
 ```
 
 ## 二，交互流程
@@ -142,7 +142,7 @@ data | 内容 base64  | ss |Y|N|
 
 返回值：
 
-* statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200且params中的errMsg=success即为成功，非200看errMsg字段
 
 ### ~~2, 添加、更新商品信息~~
 方法名：upsertProduct
@@ -164,7 +164,7 @@ amount|成交金额| double|Y|N|
 supplier|供应商| string|Y|N|
 
 返回值：
-* statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200且params中的errMsg=success即为成功，非200看errMsg字段
 
 ### ~~3, 添加、更新订单信息~~
 方法名：upsertOrder
@@ -195,7 +195,7 @@ productSet | 订单商品集合｛productId：num，productId2:num...}  | string
 
 
 返回值：
-* statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200且params中的errMsg=success即为成功，非200看errMsg字段
 
 
 
@@ -249,8 +249,8 @@ source | 产地 | string(50)|Y|Y|
 supplier|供应商| string|Y|N|
 
 返回值：
-* statusCode = 200即为成功，非 200 看errMsg字段
-* 在响应体的params字段里面有 ｛loadId : xxxx},返回这次贷款申请的ID ,string类型
+* statusCode = 200且params中的errMsg=success即为成功，非200看errMsg字段
+* statusCode = 200 时 在响应体的params字段里面有 ｛loadId : xxxx,errMsg:"success"},返回这次贷款申请的ID ,string类型
 
 #### 4.2, 上传贷款申请资料
 
@@ -270,7 +270,7 @@ data | 内容 base64  | string |Y|N|
 
 返回值：
 
-* statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200且params中的errMsg=success即为成功，非200看errMsg字段
 
 #### 4.3, 确认贷款方案
 
@@ -287,7 +287,7 @@ data | 内容 base64  | string |Y|N|
 loadId | 贷款编号  | string(128)|Y|Y|
 
 返回值：
-* statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200且params中的errMsg=success即为成功，非200看errMsg字段
 
 
 ### 5, 贷款申请结果通知
@@ -318,7 +318,7 @@ sourceOrderId | 来源平台中的订单编号，仅当result=1有效  | string(
 loanAmount | 该订单审批通过的贷款金额，仅当result=1有效。为0是，表示该订单未审核通过|double|Y|Y|
 
 返回值：
-* statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200且params中的errMsg=success即为成功，非200看errMsg字段
 
 ### 6, 贷款申请结果确认
 平台请求中子星
@@ -335,7 +335,7 @@ loadId | 贷款编号  | string(128)|Y|Y|
 confirmation | 确认结果1：同意   2：取消   3：过期 | int|Y|Y|
 
 返回值：
-* statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200且params中的errMsg=success即为成功，非200看errMsg字段
 
 ### 7，贷款放款完成通知
 中子星收到平台的确认消息即开始放款操作
@@ -373,7 +373,7 @@ dueInterest | 应还利息 | double|Y|Y|
 dueAmount | 应还金额总和 | double|Y|Y|
 
 返回值：
-* statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200且params中的errMsg=success即为成功，非200看errMsg字段
 
 ### 8，主动还款通知
     第三方平台财务汇款后通知
@@ -392,7 +392,7 @@ amount | 还款总金额 | double|Y|Y|
 periodNumber | 还款期数序号 | int|Y|Y|
 
 返回值：
-* statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200且params中的errMsg=success即为成功，非200看errMsg字段
 
 ### 9，还款结果通知
 
@@ -418,7 +418,7 @@ refundFlag | 此期是否还款完毕，仅当result=1时有效1：已还完完�
 refundType | 还款类型，1：到期还款，2：提前还款，3：追偿还款 | int|Y|Y|
 
 返回值：
-* statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200且params中的errMsg=success即为成功，非200看errMsg字段
 
 ### 10，客户还款提醒
 
@@ -440,7 +440,7 @@ refundDefaultInterest | 还款罚息 | double|Y|Y|
 overdueDays | 逾期天数   | int|Y|Y|
 
 返回值：
-* statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200且params中的errMsg=success即为成功，非200看errMsg字段
 
 ### 11，获取用户订单历史
 
@@ -457,7 +457,7 @@ startDate | 查询起始日期(yyyy-MM-dd HH:mm:ss)  | string|Y|Y|
 endDate | 查询终止日期(yyyy-MM-dd HH:mm:ss) | string|Y|Y|
 
 返回值：
-* statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200且params中的errMsg=success即为成功，非200看errMsg字段
 * params字段说明
 
 参数名 | 说明 | 类型 | 必须 | 唯一|
@@ -518,7 +518,7 @@ receiveTime | 收货时间  | string|N|Y|
 
 
 返回值：
-* statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200且params中的errMsg=success即为成功，非200看errMsg字段
 
 ### 13，售后信息维护
 
@@ -539,7 +539,7 @@ finishTime | 完成时间  | string|N|Y|
 
 
 返回值：
-* statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200且params中的errMsg=success即为成功，非200看errMsg字段
 
 
 ### 14，发票信息维护
@@ -565,4 +565,4 @@ price | 交易金额  | double|Y|Y|
 
 
 返回值：
-* statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200且params中的errMsg=success即为成功，非200看errMsg字段
