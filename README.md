@@ -12,7 +12,7 @@
 HTTPS|POST  |JSON|  UTF-8|	
 
 ### 1.2  接口地址
-* 中子星接口地址：api.scf.xingyoucai.com/open/entry(暂未开放)
+* 中子星接口地址：https://scf.xingyoucai.com/api/v1/ickey/entry.do
 * 第三方接口地址：xx
 * 接口sdk例子：https://github.com/hanyh2004/zzx-scf-sdk
 
