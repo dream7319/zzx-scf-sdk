@@ -211,7 +211,7 @@ productSet | 订单商品集合｛productId：num，productId2:num...}  | string
 ----|------|----|------|----|
 amount | 贷款申请金额（销售合同金额合计）单位：元  | double |Y|Y|
 productId | 金融产品ID  | string(128)|Y|N|
-orders | 订单集合  | string|Y|N|
+orders | 订单集合(list)  | string|Y|N|
 *  金融产品ID确定了这次贷款申请的利率，期限等金融要素.对接时中子星会给对应的ID信息
 
 * order实体说明
@@ -234,7 +234,7 @@ consigneeAddress | 订单收货人地址  | string(128)|Y|N|
 consigneeTel | 订单收货人电话  | string(128)|Y|N|
 createTime | 订单生成日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
 updateTime | 订单状态更新日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
-products | 订单商品集合，一个数组，每个项目是一个product | string|Y|N|
+products | 订单商品集合(list) | string|Y|N|
 
 * product实体说明
 
@@ -308,7 +308,7 @@ reason | 档贷款result＝0时，有拒绝贷款原因  | string(128)|Y|Y|
 loanAmount | 批准的贷款金额合计，仅当result=1有效  | double|Y|Y|
 loanTerm | 批准的贷款期限，仅当result=1有效  | int|Y|Y|
 paymentOption |还款方式 1.到期一次性   | int|Y|Y|
-orders | 订单编号集合  | string|Y|Y|
+orders | 订单编号集合(list)  | string|Y|Y|
 
 orders时一个数组，里面每一个order参数如下：
 
@@ -351,8 +351,8 @@ confirmation | 确认结果1：同意   2：取消   3：过期 | int|Y|Y|
 loadId | 贷款编号  | string(128)|Y|Y|
 date | 发放日期(YYYYMMDD) | string|Y|Y|
 amount | 发放金额 | double|Y|Y|
-account | 放款帐号 | string|Y|Y|
-refunds | 还款计划集合 | string|Y|Y|
+account | 放款帐号(list) | string|Y|Y|
+refunds | 还款计划集合(list) | string|Y|Y|
 
 * account说明
 
@@ -462,7 +462,7 @@ endDate | 查询终止日期(yyyy-MM-dd HH:mm:ss) | string|Y|Y|
 
 参数名 | 说明 | 类型 | 必须 | 唯一|
 ----|------|----|------|----|
-orders | order订单集合(数组)  | string|Y|Y|
+orders | order订单集合(list)  | string|Y|Y|
 
 * order实体说明
 
@@ -484,7 +484,7 @@ consigneeAddress | 订单收货人地址  | string(128)|Y|N|
 consigneeTel | 订单收货人电话  | string(128)|Y|N|
 createTime | 订单生成日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
 updateTime | 订单状态更新日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
-products | 订单商品集合，一个数组，每个项目是一个product | string|Y|N|
+products | 订单商品集合(list) | string|Y|N|
 
 * product实体说明
 
