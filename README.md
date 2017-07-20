@@ -93,7 +93,7 @@ channelId=2&method=getLoanDetailInfo&params={"loanDate":"2016-12-09","commission
 ### 1, 注册接口
 
 #### 1.1 注册新客户
-方法名：upsertCustomer
+方法名：registerNewCustomer
 
 调用方向：3rd->zzx
 
