@@ -60,12 +60,12 @@ HTTPS|POST  |JSON|  UTF-8|
 ### 1.4 签名	
 
 #### 1.4.1 说明
-* 在RSA签名时，需要私钥和公钥一起参与签名。私钥与公钥可以自行通过OPENSSL来生成。|
-    参考RSA生成的公钥和私钥：|
-    1、openssl genrsa -out rsa_private_key.pem 1024|
-    2、openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem|
-    3、openssl pkcs8 -topk8 -in rsa_private_key.pem -out pkcs8_rsa_private_key.pem -nocrypt|
-    即：rsa_public_key.pem公钥、pkcs8_rsa_private_key.pem私钥|
+* 在RSA签名时，需要私钥和公钥一起参与签名。私钥与公钥可以自行通过OPENSSL来生成。<br>
+    参考RSA生成的公钥和私钥：<br>
+    1、openssl genrsa -out rsa_private_key.pem 1024<br>
+    2、openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem<br>
+    3、openssl pkcs8 -topk8 -in rsa_private_key.pem -out pkcs8_rsa_private_key.pem -nocrypt<br>
+    即：rsa_public_key.pem公钥、pkcs8_rsa_private_key.pem私钥<br>
 * 中子星平台把生成出的公钥与第三方的公钥做交换。
 * 在签名时，中子星平台使用自己的私钥产生签名字符串。收到通知或应答时，使用第三方的公钥进行校验。 
 
