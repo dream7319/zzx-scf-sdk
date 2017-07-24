@@ -459,7 +459,7 @@ overdueDays | 逾期天数   | int|Y|Y|
 
 参数名 | 说明 | 类型 | 必须 | 唯一|
 ----|------|----|------|----|
-userId | 用户在3rd系统中的编号  | string|Y|Y|
+userIdResource | 用户在3rd系统中的编号  | string|Y|Y|
 startDate | 查询起始日期(yyyy-MM-dd HH:mm:ss)  | string|Y|Y|
 endDate | 查询终止日期(yyyy-MM-dd HH:mm:ss) | string|Y|Y|
 
