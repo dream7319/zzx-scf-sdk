@@ -480,7 +480,7 @@ payType | 支付方式  | string(128)|Y|N|
 buyerId | 买家ID  | string(128)|Y|N|
 buyer | 买家(email)  | string(128)|Y|N|
 status | 新销售单／备货中／取消／签收  | string(256)|Y|N|
-num | 商品数量  | double|Y|N|
+num | 商品数量  | int|Y|N|
 amount | 商品总金额 | double|Y|Y|
 freight | 运费 |double|Y|N|
 extra|额外费用| double|Y|N|
@@ -519,7 +519,7 @@ startPoint | 物流起点  | string|Y|Y|
 dstPoint | 物流终点  | string|Y|Y|
 ticketNo | 快递单号  | string|N|Y|
 address | 仓库地址  | string|Y|Y|
-quantity | 货品数量  | string|Y|Y|
+quantity | 货品数量  | int|Y|Y|
 sendTime | 发货时间  | string|Y|Y|
 receiveTime | 收货时间  | string|N|Y|
 
