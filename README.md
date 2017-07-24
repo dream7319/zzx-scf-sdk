@@ -12,7 +12,9 @@
 HTTPS|POST  |JSON|  UTF-8|	
 
 ### 1.2  接口地址
-* 中子星接口地址：https://scf.xingyoucai.com/api/v1/ickey/entry.do
+* 中子星接口地址：<br/>
+生产地址：https://scf.xingyoucai.com/api/v1/ickey/entry.do<br/>
+测试地址：https://ssl-scf.xingyoucai.com/api/v1/ickey/entry.do<br/>
 * 第三方接口地址：xx
 * 接口sdk例子：https://github.com/hanyh2004/zzx-scf-sdk
 
@@ -255,7 +257,7 @@ supplier|供应商| string|Y|N|
 
 返回值：
 * statusCode = 200即为成功，非200看errMsg字段
-* statusCode = 200 时 在响应体的params字段里面有 ｛loadId : xxxx},返回这次贷款申请的ID ,string类型
+* statusCode = 200 时 在响应体的params字段里面有 ｛loanId : xxxx},返回这次贷款申请的ID ,string类型
 
 #### 4.2, 上传贷款申请资料
 
