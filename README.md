@@ -373,7 +373,7 @@ bankBranch | 开户支行 | string|Y|Y|
 
 参数名 | 说明 | 类型 | 必须 | 唯一|
 ----|------|----|------|----|
-periodNumber | 还款期数序号（有可能有多期，因此此字段与后续字段以数组方式存在）  | int|Y|Y|
+periodNumber | 还款期数序号  | int|Y|Y|
 dueDate | 应还款日期(YYYYMMDD) | string|Y|Y|
 dueCapital | 应还本金 | double|Y|Y|
 dueInterest | 应还利息 | double|Y|Y|
