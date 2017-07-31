@@ -500,6 +500,420 @@ quantity | 购买数量  | int|Y|N|
 调用方向：3rd->zzx
 
 参数列表：
+## 三, 接口说明
+
+### 1, 注册接口
+
+#### 1.1 注册新客户
+方法名：registerNewCustomer
+
+调用方向：3rd->zzx
+
+参数列表：
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+userId | 客户编号  | string|Y|Y|
+email | 客户邮箱  | string|Y|N|
+userName | 收货人名称  | string|Y|N|
+companyName | 公司名字  | string|N|N|
+registerTel | 注册电话  | string|Y|N|
+userLevel | 客户级别  | string|Y|N|
+registerTime | 用户在来源平台中的注册时间(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
+address | 客户地址  | string|Y|N|
+contactTel | 联系电话  | string|N|N|
+contactName | 联系人姓名  | string|N|N|
+rmbCreditLimit| RMB授信额度上限  | double|N|N|
+rmbCreditUsed| RMB授信已用额度  | double|N|N|
+rmbCreditAvailable| RMB授信可用额度  | double|N|N|
+rmbCreditDays| RMB授信天数  | int|N|N|
+rmbCreditStatus | RMB授信状态 （0未开通，1开通，2冻结） | string|N|N|
+rmbTicketRule | RMB开票规则 | string|N|N|
+lastOrderDate | 最后下单日期 (YYYY-MM-DD HH24:MI:SS)| string|N|N|
+
+
+返回值：
+
+* statusCode = 200即为成功，非200看errMsg字段
+
+#### 1.2 上传资料
+
+方法名：uploadAttachment
+
+调用方向：3rd->zzx
+
+参数列表：
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+id | 编号(本地指客户编号)  | string(128)|Y|Y|
+fileSubject | 文件主题{营业执照:yyzz；组织机构代码：zzjg;税务登记证文件:sudj;单位银行结算账户开户许可证:khxk;企业法人证件正面:frzjz;企业法人证件反面:frzjf	  | string(128)|Y|N|
+filename | 文件名称  | string(200)|Y|N|
+data | 内容 base64  | ss |Y|N|
+* fileSubject的格式为：[upsertCustomer-特定主题],比如是营业执照,则是upsertCustomer-yyzz
+
+返回值：
+
+* statusCode = 200即为成功，非200看errMsg字段
+
+### ~~2, 添加、更新商品信息~~
+方法名：upsertProduct
+
+调用方向：3rd->zzx
+
+参数列表：
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+productId | 产品编号  | string(128)|Y|Y|
+name | 产品名  | string(128)|Y|N|
+price | 单价  | string(128)|Y|N|
+category | 分类  | string(256)|Y|N|
+tax | 税率  | double|Y|N|
+source | 产地 | string(50)|Y|Y|
+status | 成交状态  | string(256)|Y|N|
+amount|成交金额| double|Y|N|
+supplier|供应商| string|Y|N|
+
+返回值：
+* statusCode = 200即为成功，非200看errMsg字段
+
+### ~~3, 添加、更新订单信息~~
+方法名：upsertOrder
+
+调用方向：3rd->zzx
+
+参数列表：
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+orderId | 编号  | string(128)|Y|Y|
+payType | 支付方式  | string(128)|Y|N|
+buyerId | 买家ID  | string(128)|Y|N|
+buyer | 买家(email)  | string(128)|Y|N|
+status | 新销售单／备货中／取消／签收  | string(256)|Y|N|
+num | 商品数量  | double|Y|N|
+amount | 商品总金额 | double|Y|Y|
+freight | 运费 |double|Y|N|
+extra|额外费用| double|Y|N|
+discount|折扣| double|Y|N|
+settlementAmount|结算金额| double|Y|N|
+consigneeName | 订单收货人  | string(128)|Y|N|
+consigneeAddress | 订单收货人地址  | string(128)|Y|N|
+consigneeTel | 订单收货人电话  | string(128)|Y|N|
+createTime | 订单生成日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
+updateTime | 订单状态更新日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
+productSet | 订单商品集合｛productId：num，productId2:num...}  | string|Y|N|
+
+
+返回值：
+* statusCode = 200即为成功，非200看errMsg字段
+
+
+
+### 4.1, 申请贷款
+用多个订单来申请融资，中子星会根据风控标准筛选出合适的订单
+方法名：loanApply
+
+调用方向：3rd->zzx
+
+参数列表：
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+amount | 贷款申请金额（销售合同金额合计）单位：元  | double |Y|Y|
+productId | 金融产品ID  | string(128)|Y|N|
+orders | 订单集合(list)  | string|Y|N|
+*  金融产品ID确定了这次贷款申请的利率，期限等金融要素.对接时中子星会给对应的ID信息
+
+* order实体说明
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+orderId | 编号  | string(128)|Y|Y|
+payType | 支付方式  | string(128)|Y|N|
+buyerId | 买家ID  | string(128)|Y|N|
+buyer | 买家(email)  | string(128)|Y|N|
+status | 新销售单／备货中／取消／签收  | string(256)|Y|N|
+num | 商品数量  | int|Y|N|
+amount | 商品总金额 | double|Y|Y|
+freight | 运费 |double|Y|N|
+extra|额外费用| double|Y|N|
+discount|折扣| double|Y|N|
+settlementAmount|结算金额| double|Y|N|
+consigneeName | 订单收货人  | string(128)|Y|N|
+consigneeAddress | 订单收货人地址  | string(128)|Y|N|
+consigneeTel | 订单收货人电话  | string(128)|Y|N|
+createTime | 订单生成日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
+updateTime | 订单状态更新日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
+products | 订单商品集合(list) | string|Y|N|
+
+* product实体说明
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+productName | 商品名称  | string(128)|Y|Y|
+price | 商品单价  | double|Y|N|
+quantity | 购买数量  | int|Y|N|
+category | 分类  | string(256)|Y|N|
+tax | 税率  | double|Y|N|
+source | 产地 | string(50)|Y|Y|
+supplier|供应商| string|Y|N|
+
+返回值：
+* statusCode = 200即为成功，非200看errMsg字段
+* statusCode = 200 时 在响应体的params字段里面有 ｛loanId : xxxx},返回这次贷款申请的ID ,string类型
+
+#### 4.2, 上传贷款申请资料
+
+方法名：uploadAttachment
+
+调用方向：3rd->zzx
+
+参数列表：
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+id | 编号(本地贷款编号)  | string(128)|Y|Y|
+fileSubject | loanApply-文件主题  | string(128)|Y|N|
+filename | 文件名称  | string(200)|Y|N|
+data | 内容 base64  | string |Y|N|
+* fileSubject的格式为：[loanApply-文件主题]，比如是采购合同,则是loanApply-采购合同
+
+返回值：
+
+* statusCode = 200即为成功，非200看errMsg字段
+
+#### 4.3, 确认贷款方案
+
+方法名：loanApplySubmit
+贷款申请的补充资料提交完毕后，确认申请
+
+调用方向：3rd->zzx
+
+
+参数列表：
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+loanId | 贷款编号  | string(128)|Y|Y|
+
+返回值：
+* statusCode = 200即为成功，非200看errMsg字段
+
+
+### 5, 贷款申请结果通知
+中子星请求平台
+
+方法名：loanApplyResultNotify
+
+调用方向：zzx->3rd
+
+参数列表：
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+loanId | 贷款编号  | string(128)|Y|Y|
+result | 贷款是否批准（0，1)1,代表贷款批准 | int|Y|Y|
+commissions | 费用  | double|Y|Y|
+reason | 档贷款result＝0时，有拒绝贷款原因  | string(128)|Y|Y|
+loanAmount | 批准的贷款金额合计，仅当result=1有效  | double|Y|Y|
+loanTerm | 批准的贷款期限，仅当result=1有效  | int|Y|Y|
+paymentOption |还款方式 1.到期一次性   | int|Y|Y|
+orders | 订单编号集合(list)  | string|Y|Y|
+
+orders时一个数组，里面每一个order参数如下：
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+sourceOrderId | 来源平台中的订单编号，仅当result=1有效  | string(128)|Y|Y|
+loanAmount | 该订单审批通过的贷款金额，仅当result=1有效。为0是，表示该订单未审核通过|double|Y|Y|
+
+返回值：
+* statusCode = 200即为成功，非200看errMsg字段
+
+### 6, 贷款申请结果确认
+平台请求中子星
+
+方法名：loanContractConfirm
+
+调用方向：3rd->zzx
+
+参数列表：
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+loanId | 贷款编号  | string(128)|Y|Y|
+confirmation | 确认结果1：同意   2：取消   3：过期 | int|Y|Y|
+
+返回值：
+* statusCode = 200即为成功，非200看errMsg字段
+
+### 7，贷款放款完成通知
+中子星收到平台的确认消息即开始放款操作
+
+方法名：paymentNotify
+
+调用方向：zzx-3rd
+
+参数列表：
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+loanId | 贷款编号  | string(128)|Y|Y|
+date | 发放日期(YYYYMMDD) | string|Y|Y|
+amount | 发放金额 | double|Y|Y|
+account | 放款帐号(list) | string|Y|Y|
+refunds | 还款计划集合(list) | string|Y|Y|
+
+* account说明
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+accountName | 放款账户  | string(128)|Y|Y|
+bankCard | 账号 | string|Y|Y|
+bankBranch | 开户支行 | string|Y|Y|
+
+* refunds说明
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+periodNumber | 还款期数序号  | int|Y|Y|
+dueDate | 应还款日期(YYYYMMDD) | string|Y|Y|
+dueCapital | 应还本金 | double|Y|Y|
+dueInterest | 应还利息 | double|Y|Y|
+dueAmount | 应还金额总和 | double|Y|Y|
+
+返回值：
+* statusCode = 200即为成功，非200看errMsg字段
+
+### 8，主动还款通知
+    第三方平台财务汇款后通知
+
+方法名：refundNotify
+
+调用方向：3rd->zzx
+
+参数列表：
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+refundType | 还款类型：1：到期正常，还款2：提前还款，3：逾期还款  | int|Y|Y|
+loanId | 贷款编号 | string|Y|Y|
+amount | 还款总金额 | double|Y|Y|
+periodNumber | 还款期数序号 | int|Y|Y|
+
+返回值：
+* statusCode = 200即为成功，非200看errMsg字段
+
+### 9，还款结果通知
+
+方法名：refundResultNotify
+
+调用方向：zzx->3rd
+参数列表：
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+result | 还款扣款结果  1：成功    0：失败  | int|Y|Y|
+reason | 还款，仅当result=0时有效  | string|Y|Y|
+date | 贷款编号 | string|Y|Y|
+periodNumber | 还款期数序号 | int|Y|Y|
+loanId | 贷款编号 | string|Y|Y|
+amount | 还款总金额=本金+利息+手续费+罚息 | double|Y|Y|
+periodNumber | 还款期数序号 | int|Y|Y|
+refundCapital | 还款本金，仅当result=1时有效 | double|Y|Y|
+refundInterest | 还款利息，仅当result=1时有效 | double|Y|Y|
+refundCommission | 还款手续费，仅当result=1时有效 | double|Y|Y|
+refundDefaultInterest | 还款罚息，仅当result=1时有效 | double|Y|Y|
+refundFlag | 此期是否还款完毕，仅当result=1时有效1：已还完完毕    2：未还款完毕 | int|Y|Y|
+refundType | 还款类型，1：到期还款，2：提前还款，3：追偿还款 | int|Y|Y|
+
+返回值：
+* statusCode = 200即为成功，非200看errMsg字段
+
+### 10，客户还款提醒
+
+方法名：customerRefundNotify
+
+调用方向：zzx->3rd
+
+参数列表：
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+loanId | 贷款编号  | string|Y|Y|
+refundCapital | 当期应还本金  | double|Y|Y|
+refundInterest | 当期应还利息 | double|Y|Y|
+refundCommission | 当期应还手续费  | double|Y|Y|
+amount | 还款总金额=本金+利息+手续费+罚息 | double|Y|Y|
+periodNumber | 还款期数  | int|Y|Y|
+refundDefaultInterest | 还款罚息 | double|Y|Y|
+overdueDays | 逾期天数   | int|Y|Y|
+
+返回值：
+* statusCode = 200即为成功，非200看errMsg字段
+
+### 11，获取用户订单历史
+
+方法名：getOrderHistory
+
+调用方向：zzx->3rd
+
+参数列表：
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+userIdResource | 用户在3rd系统中的编号  | string|Y|Y|
+startDate | 查询起始日期(yyyy-MM-dd HH:mm:ss)  | string|Y|Y|
+endDate | 查询终止日期(yyyy-MM-dd HH:mm:ss) | string|Y|Y|
+
+返回值：
+* statusCode = 200即为成功，非200看errMsg字段
+* params字段说明
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+orders | order订单集合(list)  | string|Y|Y|
+
+* order实体说明
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+orderId | 编号  | string(128)|Y|Y|
+payType | 支付方式  | string(128)|Y|N|
+buyerId | 买家ID  | string(128)|Y|N|
+buyer | 买家(email)  | string(128)|Y|N|
+status | 新销售单／备货中／取消／签收  | string(256)|Y|N|
+num | 商品数量  | int|Y|N|
+amount | 商品总金额 | double|Y|Y|
+freight | 运费 |double|Y|N|
+extra|额外费用| double|Y|N|
+discount|折扣| double|Y|N|
+settlementAmount|结算金额| double|Y|N|
+consigneeName | 订单收货人  | string(128)|Y|N|
+consigneeAddress | 订单收货人地址  | string(128)|Y|N|
+consigneeTel | 订单收货人电话  | string(128)|Y|N|
+createTime | 订单生成日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
+updateTime | 订单状态更新日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
+products | 订单商品集合(list) | string|Y|N|
+
+* product实体说明
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+productName | 商品名称  | string(128)|Y|Y|
+price | 商品单价  | double|Y|N|
+quantity | 购买数量  | int|Y|N|
+
+
+### 12，物流信息维护
+
+方法名：upsertLogistics
+
+调用方向：3rd->zzx
+
+参数列表：
 
 参数名 | 说明 | 类型 | 必须 | 唯一|
 ----|------|----|------|----|
@@ -510,13 +924,13 @@ startPoint | 物流起点  | string|Y|Y|
 dstPoint | 物流终点  | string|Y|Y|
 ticketNo | 快递单号  | string|N|Y|
 address | 仓库地址  | string|Y|Y|
-quantity | 货品数量  | string|Y|Y|
+quantity | 货品数量  | int|Y|Y|
 sendTime | 发货时间  | string|Y|Y|
 receiveTime | 收货时间  | string|N|Y|
 
 
 返回值：
-* statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200即为成功，非200看errMsg字段
 
 ### 13，售后信息维护
 
@@ -537,7 +951,7 @@ finishTime | 完成时间  | string|N|Y|
 
 
 返回值：
-* statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200即为成功，非200看errMsg字段
 
 
 ### 14，发票信息维护
@@ -563,4 +977,4 @@ price | 交易金额  | double|Y|Y|
 
 
 返回值：
-* statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200即为成功，非200看errMsg字段
