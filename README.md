@@ -29,7 +29,7 @@ HTTPS|POST  |JSON|  UTF-8|
 3	|channelId|	Y	|String	|平台编号（由中子星统一分配)。| (参与签名)|
 4	|signType	|Y	|String	|RSA2（SHA256WithRSA）|   (参与签名)|
 5	|sign	|Y	|String	|签名，具体方法参见下面的安全签名机制   (不参与签名)|
-6	|params	|Y	|String	|请求消息体，以JSON格式传输(消息体中每个非空字段均参与签名)|
+6	|params	|Y	|String	|请求消息体，以JSON格式传输(消息体中每个非空字段(null:不参与,"":参与)均参与签名)|
 
 <em><font color=red size=3>如果一个字段为null，Json中不包含该字段。</font></em>
 
@@ -45,7 +45,7 @@ HTTPS|POST  |JSON|  UTF-8|
 5	|channelId|	Y	|String	|"平台编号（由中子星统一分配)。此字段为必选字段，内容即为分配给该平台的ID|
 6	|signType	|Y|	String	|RSA2（SHA256WithRSA）   (参与签名)|
 7	|sign	|Y	|String	|RSA加密签名，见安全签名机制 (不参与签名)|
-8	|params	|Y	|String|	应答消息体，以JSON格式传输。 (消息体中每个非空字段均参与签名)|
+8	|params	|Y	|String|	应答消息体，以JSON格式传输。 (消息体中每个非空字段均参与签名(null:不参与,"":参与),如果没有数据,此字段可以不传递)|
 
 #### 1.3.3 请求和应答样例	
 
