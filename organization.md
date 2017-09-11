@@ -8,7 +8,7 @@
 ----|------|----|------|----|
 amount | 贷款申请金额（销售合同金额合计）单位：元  | double |Y|Y|
 productId | 金融产品ID  | string(128)|Y|N|
-orders | 订单集合(list)  | string|Y|N|
+orders | 订单集合(list)  | list|Y|N|
 *  金融产品ID确定了这次贷款申请的利率，期限等金融要素.对接时中子星会给对应的ID信息
 
 * order实体说明
