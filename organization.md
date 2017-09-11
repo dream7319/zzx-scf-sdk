@@ -19,7 +19,7 @@ orderId | 编号  | string(128)|Y|Y|
 name | 姓名  | string(128)|Y|N|
 organizationId | 单位编号  | string(128)|Y|N|
 organization | 单位名称  | string(128)|Y|N|
-mobile | 手机号  | 11 |Y|N|
+mobile | 手机号  | string(11) |Y|N|
 cardno | 身份证号  | int|Y|N|
 level | 套餐档次 | string|Y|Y|
 orderDate | 订购时间 |string|Y|N|
