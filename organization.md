@@ -13,10 +13,9 @@ HTTPS|POST  |JSON|  UTF-8|
 
 ### 1.2  接口地址
 * 中子星接口地址：<br/>
-生产地址：https://scf.xingyoucai.com/api/v1/ickey/entry.do<br/>
-测试地址：https://ssl-scf.xingyoucai.com/api/v1/ickey/entry.do<br/>
+生产地址：待定<br/>
+测试地址：待定<br/>
 * 第三方接口地址：xx
-* 接口sdk例子：https://github.com/hanyh2004/zzx-scf-sdk
 
 ### 1.3 消息格式
 #### 1.3.1 请求格式
