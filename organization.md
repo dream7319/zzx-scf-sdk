@@ -43,10 +43,8 @@ type|机器型号| string|Y|N|
 参数名 | 说明 | 类型 | 必须 | 唯一|
 ----|------|----|------|----|
 id | 贷款编号(中子星返回的贷款编号)  | string(128)|Y|Y|
-fileSubject | loanApply-单位编号  | string(128)|Y|N|
 filename | 文件名称(aa.png)  | string(200)|Y|N|
 data | 内容 base64  | string |Y|N|
-* fileSubject的格式为：[loanApply-单位编号]，比如单位是: 111,则是loanApply-111
 
 返回值：
 
