@@ -118,6 +118,7 @@ organizationId | 单位编号  | string(128)|Y|N|
 organization | 单位名称  | string(128)|Y|N|
 mobile | 手机号  | string(11) |Y|N|
 cardno | 身份证号  | String(19) |Y|N|
+divideRate | 分成比例 | float |Y|N|
 level | 套餐档次 | string|Y|Y|
 orderDate | 订购时间 |string|Y|N|
 packageDuration|协议期(套餐时长)| string|Y|N|
