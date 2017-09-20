@@ -281,11 +281,10 @@ periodNumber | 还款期数序号 | int|Y|Y|
 ----|------|----|------|----|
 result | 还款扣款结果  1：成功    0：失败  | int|Y|Y|
 reason | 还款，仅当result=0时有效  | string|Y|Y|
-date | 贷款编号 | string|Y|Y|
+date | 还款日期 | string|Y|Y|
 periodNumber | 还款期数序号 | int|Y|Y|
 loanId | 贷款编号 | string|Y|Y|
 amount | 还款总金额=本金+利息+手续费+罚息 | double|Y|Y|
-periodNumber | 还款期数序号 | int|Y|Y|
 refundCapital | 还款本金，仅当result=1时有效 | double|Y|Y|
 refundInterest | 还款利息，仅当result=1时有效 | double|Y|Y|
 refundCommission | 还款手续费，仅当result=1时有效 | double|Y|Y|
