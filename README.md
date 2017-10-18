@@ -38,7 +38,7 @@ HTTPS|POST  |JSON|  UTF-8|application/json
 
 序号	| 名称  | 必填	| 类型	|参数说明|
 ---- |------|----  |------|-----|
-1	|statusCode	|Y	|int	|"消息是否成功接受并处理结果标记，statusCode = 200时表示成功处理, statusCode != 200时表示处理失败" (不参与签名)|
+1	|statusCode	|Y	|int	|"消息是否成功接受并处理结果标记，statusCode = 200时表示成功处理且errMsg为空, statusCode != 200时表示处理失败" (不参与签名)|
 2	|errMsg	|N	|String	|"失败原因， 仅当statusCode != 200时有效"(不参与签名)|
 3	|method	|Y	|String	|方法名称，同请求   (参与签名)|
 4	|ver	|Y	|String	|协议接口版本号，"1.0"，同请求。   (参与签名)|
